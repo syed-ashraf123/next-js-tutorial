@@ -21,5 +21,6 @@ export default function Home({ res }) {
 export async function getStaticProps() {
   const response = await fetch("https://opentdb.com/api.php?amount=10");
   const res = await response.json();
-  return { props: { res } };
+
+  return { props: { res }, revalidate: 10 };
 }
