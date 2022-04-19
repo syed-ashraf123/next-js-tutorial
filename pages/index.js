@@ -1,26 +1,12 @@
-import { useState } from "react";
-export default function Home({ res }) {
-  const [user, setUser] = useState(res.results);
-
+import dynamic from "next/dynamic";
+export default function Home() {
+  const Dynamic = dynamic(() =>
+    import("../Dynamic").then((res) => console.log(res))
+  );
   return (
     <>
-      {user.map((item, idx) => {
-        return (
-          <div key={idx}>
-            <p>
-              {idx} -- {item.question}
-            </p>
-            <p>{item.correct_answer}</p>
-          </div>
-        );
-      })}
+      <h1>Index Page</h1>
+      <Dynamic />
     </>
   );
-}
-
-export async function getStaticProps() {
-  const response = await fetch("https://opentdb.com/api.php?amount=10");
-  const res = await response.json();
-
-  return { props: { res }, revalidate: 10 };
 }
